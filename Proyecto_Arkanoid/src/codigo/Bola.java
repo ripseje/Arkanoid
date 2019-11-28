@@ -165,6 +165,20 @@ public class Bola extends GOval{
 			Arkanoid.ladrillos--;
 			noHaChocado = false;
 		}
+		
+		if(auxiliar instanceof Booster){
+			//si entra aquí es porque el objeto que está
+			//en la posición posX, posY es de tipo ladrillo
+			vy *= -1;
+			vx *= vy;
+			arkanoid.remove(auxiliar);
+			arkanoid.remove(((Booster) auxiliar).bloque3);
+			Arkanoid.puntuacion += 100;
+			Arkanoid.marcador.setLabel(Arkanoid.puntuacion + " Puntos");
+			//((Ladrillo) auxiliar).setFillColor(Color.PINK);
+			Arkanoid.ladrillos--;
+			noHaChocado = false;
+		}
 
 		if(auxiliar instanceof Limite){
 			//si entra aquí es porque el objeto que está

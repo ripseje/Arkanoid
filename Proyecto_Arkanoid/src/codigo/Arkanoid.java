@@ -192,9 +192,9 @@ public class Arkanoid extends GraphicsProgram{
 			for (int i=j; i<numeroLadrillos3; i++){
 				int posicionX = desplazamientoInicial3 + ANCHO_LADRILLO * i - ANCHO_LADRILLO /2 * j;
 				int posicionY = ALTO_LADRILLO * j + 150;
-				Ladrillo miLadrillo = new Ladrillo(posicionX, posicionY, ANCHO_LADRILLO, ALTO_LADRILLO, Color.DARK_GRAY);
-				add(miLadrillo);
-				add(miLadrillo.bloque3, posicionX+1, posicionY+1);
+				Booster booster = new Booster(posicionX, posicionY, ANCHO_LADRILLO, ALTO_LADRILLO, Color.DARK_GRAY);
+				add(booster);
+				add(booster.bloque3, posicionX+1, posicionY+1);
 				ladrillos++;
 				pause(10);
 			}
@@ -203,9 +203,9 @@ public class Arkanoid extends GraphicsProgram{
 			for (int i=j; i<numeroLadrillos3; i++){
 				int posicionX = desplazamientoInicial4 + ANCHO_LADRILLO * i - ANCHO_LADRILLO /2 * j;
 				int posicionY = ALTO_LADRILLO * j + 150;
-				Ladrillo miLadrillo = new Ladrillo(posicionX, posicionY, ANCHO_LADRILLO, ALTO_LADRILLO, Color.DARK_GRAY);
-				add(miLadrillo);
-				add(miLadrillo.bloque3, posicionX+1, posicionY+1);
+				Booster booster = new Booster(posicionX, posicionY, ANCHO_LADRILLO, ALTO_LADRILLO, Color.DARK_GRAY);
+				add(booster);
+				add(booster.bloque3, posicionX+1, posicionY+1);
 				ladrillos++;
 				pause(10);
 			}
@@ -268,9 +268,9 @@ public class Arkanoid extends GraphicsProgram{
 		for(int j=2; j<numeroLadrillos2; j++){
 			int posicionX = desplazamientoInicial+126 + ANCHO_LADRILLO * j - ANCHO_LADRILLO /2 * j;
 			int posicionY = ALTO_LADRILLO * j + 105+ALTO_LADRILLO;
-			Ladrillo miLadrillo = new Ladrillo(posicionX, posicionY, ANCHO_LADRILLO, ALTO_LADRILLO, Color.DARK_GRAY);
-			add(miLadrillo);
-			add(miLadrillo.bloque3, posicionX+1, posicionY+1);
+			Booster booster = new Booster(posicionX, posicionY, ANCHO_LADRILLO, ALTO_LADRILLO, Color.DARK_GRAY);
+			add(booster);
+			add(booster.bloque3, posicionX+1, posicionY+1);
 			ladrillos++;
 		}
 		for(int j=3; j<numeroLadrillos3; j++){
@@ -524,9 +524,9 @@ public class Arkanoid extends GraphicsProgram{
 		for(int j=3; j<numeroLadrillos2-1; j++){
 			int posicionX = desplazamientoInicial+12 + ANCHO_LADRILLO * j + ANCHO_LADRILLO;
 			int posicionY = ALTO_LADRILLO*2 + ALTO_LADRILLO + 60;
-			Ladrillo miLadrillo = new Ladrillo(posicionX, posicionY, ANCHO_LADRILLO, ALTO_LADRILLO, Color.DARK_GRAY);
-			add(miLadrillo);
-			add(miLadrillo.bloque3, posicionX+1, posicionY+1);
+			Booster booster = new Booster(posicionX, posicionY, ANCHO_LADRILLO, ALTO_LADRILLO, Color.DARK_GRAY);
+			add(booster);
+			add(booster.bloque3, posicionX+1, posicionY+1);
 			ladrillos++;
 		}
 	}
