@@ -14,8 +14,6 @@ public class Ladrillo extends GRect{
 	GImage bloque2;
 	GImage bloque3;
 	
-	public int golpes = 0;
-	
 	public Ladrillo(int posX, int posY, double ancho, double alto, Color color){
 		super(posX, posY, ancho, alto);
 		setFilled(true);

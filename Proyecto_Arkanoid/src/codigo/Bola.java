@@ -12,6 +12,7 @@ import acm.graphics.GObject;
 import acm.graphics.GOval;
 import acm.program.GraphicsProgram;
 import acmx.export.javax.swing.JLabel;
+import java.applet.AudioClip;
 
 public class Bola extends GOval{
 
@@ -151,6 +152,7 @@ public class Bola extends GOval{
 			//en la posición posX, posY es de tipo ladrillo
 			vy *= -1;
 			vx *= vy;
+			
 			arkanoid.remove(auxiliar);
 			arkanoid.remove(((Ladrillo) auxiliar).bloque2);
 			arkanoid.remove(((Ladrillo) auxiliar).bloque3);
@@ -159,9 +161,9 @@ public class Bola extends GOval{
 				arkanoid.remove(auxiliar);
 				arkanoid.remove(((Ladrillo) auxiliar).bloque);
 			}
+			
 			Arkanoid.puntuacion += 100;
 			Arkanoid.marcador.setLabel(Arkanoid.puntuacion + " Puntos");
-			//((Ladrillo) auxiliar).setFillColor(Color.PINK);
 			Arkanoid.ladrillos--;
 			noHaChocado = false;
 		}
@@ -173,7 +175,7 @@ public class Bola extends GOval{
 			vx *= vy;
 			arkanoid.remove(auxiliar);
 			arkanoid.remove(((Booster) auxiliar).bloque3);
-			Arkanoid.puntuacion += 100;
+			Arkanoid.puntuacion += 500;
 			Arkanoid.marcador.setLabel(Arkanoid.puntuacion + " Puntos");
 			//((Ladrillo) auxiliar).setFillColor(Color.PINK);
 			Arkanoid.ladrillos--;

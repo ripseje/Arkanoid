@@ -141,7 +141,7 @@ public class Arkanoid extends GraphicsProgram{
 			nivel++;
 		}
 	}
-	
+
 	public void victoria(){
 		if(ladrillos == 0){
 			remove(bola);
