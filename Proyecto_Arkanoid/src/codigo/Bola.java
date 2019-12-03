@@ -18,8 +18,8 @@ import java.applet.AudioClip;
 
 public class Bola extends GOval{
 
-	public static int vx = 0;
-	public static int vy = 1;
+	public static double vx = 0;
+	public static double vy = 1;
 	public int golpes = 0;
 	public int vidas = 3;
 	public int pause = 0;
@@ -97,55 +97,15 @@ public class Bola extends GOval{
 	private boolean chequeaColision(double posX, double posY, Arkanoid arkanoid){
 		boolean noHaChocado = true;
 		GObject auxiliar = arkanoid.getElementAt(posX, posY);
-		if(auxiliar instanceof Derecha){
+		if(auxiliar instanceof Cursor){
 			//si entra aquí es porque el objeto que está
 			//en la posición posX, posY es de tipo cursor
 			vy *= -1;
-			if(vx == -1 || vx == -2){
-				vx = -2;
-			}
-			else{ 
-				vx = 2;
-			}
-			noHaChocado = false;
-		}
-		
-		if(auxiliar instanceof Izquierda){
-			//si entra aquí es porque el objeto que está
-			//en la posición posX, posY es de tipo cursor
-			vy *= -1;
-			if(vx == 1 || vx == 2){
-				vx = 2;
-			}
-			else {
-				vx = -2;
-			}
-			noHaChocado = false;
-		}
-		
-		if(auxiliar instanceof CentroDerecha){
-			//si entra aquí es porque el objeto que está
-			//en la posición posX, posY es de tipo cursor
-			vy *= -1;
-			if(vx == -1 || vx == -2){
-				vx = -1;
-			}
-			else {
+			if(vx == 0){
 				vx = 1;
 			}
-			noHaChocado = false;
-		}
-		
-		if(auxiliar instanceof CentroIzquierda){
-			//si entra aquí es porque el objeto que está
-			//en la posición posX, posY es de tipo cursor
-			vy *= -1;
-			if(vx == 1 || vx == 2){
-				vx = 1;
-			}
-			else {
-				vx = -1;
-			}
+			
+			
 			noHaChocado = false;
 		}
 

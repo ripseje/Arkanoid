@@ -21,10 +21,7 @@ public class Arkanoid extends GraphicsProgram{
 	static int ANCHO_LADRILLO = 35;
 	static int ALTO_LADRILLO = 15;
 	static Bola bola = new Bola(10, Color.CYAN);
-	Izquierda cursorI = new Izquierda(600, 20, 10, Color.GRAY);
-	Derecha cursorD = new Derecha(600, 20, 10, Color.GRAY);
-	CentroIzquierda cursorCI = new CentroIzquierda(600, 20, 10, Color.GRAY);
-	CentroDerecha cursorCD = new CentroDerecha(600, 20, 10, Color.GRAY);
+	Cursor cursor = new Cursor(600, 80, 10, Color.GRAY);
 	Limite limite = new Limite(480, 1000, 2);
 	GImage fondo;
 	GImage fondo2;
@@ -51,11 +48,8 @@ public class Arkanoid extends GraphicsProgram{
 		//SoundTest.sonidoFondo();
 		fondo = new GImage("imagenes/fondo.gif");
 		add(fondo);
-		add(cursorD);
-		add(cursorI);
-		add(cursorCI);
-		add(cursorCD);
-		add(cursorI.cursor);
+		add(cursor);
+		add(cursor.cursor);
 		add(limite);
 		add(marcador, 20, 20);
 		marcador.setFont(new Font("Comic Sans MS", Font.BOLD, 15));
@@ -91,11 +85,8 @@ public class Arkanoid extends GraphicsProgram{
 	}
 
 	public void mouseMoved(MouseEvent evento){
-		cursorI.setLocation(evento.getX(), cursorI.getY());
-		cursorI.cursor.setLocation(evento.getX()+1, cursorI.getY()+1);
-		cursorCI.setLocation(evento.getX()+20, cursorI.getY());
-		cursorCD.setLocation(evento.getX()+40, cursorI.getY());
-		cursorD.setLocation(evento.getX()+60, cursorI.getY());
+		cursor.setLocation(evento.getX(), cursor.getY());
+		cursor.cursor.setLocation(evento.getX()+1, cursor.getY()+1);
 	}
 
 	public void keyPressed(KeyEvent evento){
@@ -165,7 +156,7 @@ public class Arkanoid extends GraphicsProgram{
 			royale = new GImage("imagenes/fondovictoria.jpg");
 			add(royale);
 			royale.sendToFront();
-			JOptionPane.showMessageDialog(null, "Puntuación Final: " + Arkanoid.puntuacion + " puntos" + " ¡FELICIDADES HAS GANADO!");
+			JOptionPane.showMessageDialog(null, "Puntuación Final: " + Arkanoid.puntuacion + " puntos");
 			ladrillos++;
 		}
 	}
