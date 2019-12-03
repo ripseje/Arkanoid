@@ -18,7 +18,6 @@ public class Booster extends GRect{
 		super(posX, posY, ancho, alto);
 		setFilled(true);
 		setFillColor(color);
-		
 		bloque3 = new GImage("imagenes/bloque3.jpg");
 		bloque3.setSize(ancho-2, alto-2);
 	}

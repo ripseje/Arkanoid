@@ -3,6 +3,7 @@ package codigo;
  * Autores: Sergio Vilches - Enrique Amado
  */
 import java.awt.Color;
+import java.util.Random;
 import java.util.concurrent.BlockingQueue;
 
 import javax.swing.JOptionPane;
@@ -11,6 +12,7 @@ import acm.graphics.GImage;
 import acm.graphics.GObject;
 import acm.graphics.GOval;
 import acm.program.GraphicsProgram;
+import acm.util.RandomGenerator;
 import acmx.export.javax.swing.JLabel;
 import java.applet.AudioClip;
 
@@ -150,9 +152,17 @@ public class Bola extends GOval{
 		if(auxiliar instanceof Ladrillo){
 			//si entra aquí es porque el objeto que está
 			//en la posición posX, posY es de tipo ladrillo
-			vy *= -1;
-			vx *= vy;
 			
+			//si choca por la parte de abajo o por la parte de arriba de un larillo cambia la velocidad de la y
+			if (auxiliar.getY() >= posY || auxiliar.getY() + auxiliar.getHeight() <= posY){
+				vy *= -1;
+			}
+			//Si ha chocado por algun lateral, cambia la velocidad x
+			else if(auxiliar.getX() == posX || auxiliar.getX() + auxiliar.getWidth() == posX){
+				vx *= -1;
+			}
+			
+			//Se borran el ladrillo y la imágen que lleve.
 			arkanoid.remove(auxiliar);
 			arkanoid.remove(((Ladrillo) auxiliar).bloque2);
 			arkanoid.remove(((Ladrillo) auxiliar).bloque3);
@@ -162,6 +172,8 @@ public class Bola extends GOval{
 				arkanoid.remove(((Ladrillo) auxiliar).bloque);
 			}
 			
+			//Al romper un ladrillo te da 100 puntos y baja un ladrillo
+			//Devuelve que se ha chocado
 			Arkanoid.puntuacion += 100;
 			Arkanoid.marcador.setLabel(Arkanoid.puntuacion + " Puntos");
 			Arkanoid.ladrillos--;
@@ -169,15 +181,22 @@ public class Bola extends GOval{
 		}
 		
 		if(auxiliar instanceof Booster){
-			//si entra aquí es porque el objeto que está
-			//en la posición posX, posY es de tipo ladrillo
+			if(random(2, 7) == 4){
+				vidas++;
+				Arkanoid.conteovidas.setLabel("x " + vidas);
+			}
+			if(random(2, 7) == 5){
+				Arkanoid.puntuacion += 400;
+			}
+			if(random(2, 7) == 6){
+				Arkanoid.barreraActiva = true;
+			}
 			vy *= -1;
 			vx *= vy;
 			arkanoid.remove(auxiliar);
 			arkanoid.remove(((Booster) auxiliar).bloque3);
-			Arkanoid.puntuacion += 500;
+			Arkanoid.puntuacion += 100;
 			Arkanoid.marcador.setLabel(Arkanoid.puntuacion + " Puntos");
-			//((Ladrillo) auxiliar).setFillColor(Color.PINK);
 			Arkanoid.ladrillos--;
 			noHaChocado = false;
 		}
@@ -197,6 +216,15 @@ public class Bola extends GOval{
 				vx = 0;
 			}
 		}
+		
+		if(auxiliar instanceof Barrera){
+			//si entra aquí es porque el objeto que está
+			//en la posición posX, posY es de tipo limite
+			vy *= -1;
+			arkanoid.remove(auxiliar);
+			noHaChocado = false;
+		}
+		
 		return noHaChocado;
 	}
 
@@ -209,5 +237,10 @@ public class Bola extends GOval{
 			vx = 0;
 			vy = 0;
 		}
+	}
+	
+	public static int random(int min, int max){
+		Random random = new Random();
+		return random.nextInt((max - min) + 1) + min;
 	}
 }

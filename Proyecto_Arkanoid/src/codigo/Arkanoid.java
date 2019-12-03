@@ -3,6 +3,7 @@ package codigo;
  * Autores: Sergio Vilches - Enrique Amado
  */
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
@@ -11,13 +12,11 @@ import javax.swing.JOptionPane;
 import acm.graphics.GImage;
 import acm.graphics.GLabel;
 import acm.graphics.GOval;
+import acm.graphics.GRect;
 import acm.program.GraphicsProgram;
 
 public class Arkanoid extends GraphicsProgram{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	static int ANCHO_LADRILLO = 35;
 	static int ALTO_LADRILLO = 15;
@@ -35,6 +34,7 @@ public class Arkanoid extends GraphicsProgram{
 	GImage nigga;
 	GImage corazon;
 	GImage inicioI;
+	public static boolean barreraActiva = false;
 	static GLabel marcador = new GLabel("0" + " Puntos");
 	static GLabel conteovidas = new GLabel("x " + "3");
 	static int puntuacion = 0;
@@ -49,7 +49,7 @@ public class Arkanoid extends GraphicsProgram{
 		addMouseListeners();
 		addKeyListeners();
 		//SoundTest.sonidoFondo();
-		fondo = new GImage("imagenes/fondo.gif"); 
+		fondo = new GImage("imagenes/fondo.gif");
 		add(fondo);
 		add(cursorD);
 		add(cursorI);
@@ -58,9 +58,13 @@ public class Arkanoid extends GraphicsProgram{
 		add(cursorI.cursor);
 		add(limite);
 		add(marcador, 20, 20);
+		marcador.setFont(new Font("Comic Sans MS", Font.BOLD, 15));
+		marcador.setColor(Color.WHITE);
 		corazon = new GImage("imagenes/corazon.png");
 		add(corazon, 375, 6);
 		add(conteovidas, 400, 20);
+		conteovidas.setFont(new Font("Comic Sans MS", Font.BOLD, 15));
+		conteovidas.setColor(Color.WHITE);
 		inicioI = new GImage("imagenes/inicio.gif");
 		add(inicioI);
 		inicioI.sendToFront();
@@ -68,7 +72,8 @@ public class Arkanoid extends GraphicsProgram{
 
 	public void run(){
 		while(true){
-			pause(2);
+			pause(3);
+			boosterBarrera();
 			bola.chequeaRebote(this);
 			if(Bola.muerete == true){
 				muerte();
@@ -106,6 +111,7 @@ public class Arkanoid extends GraphicsProgram{
 	}
 
 	public void muerte(){
+		remove(bola);
 		nigga = new GImage("imagenes/nigga.jpg"); 
 		add(nigga);
 		muerte = new GImage("imagenes/muerte.gif");
@@ -141,20 +147,25 @@ public class Arkanoid extends GraphicsProgram{
 			nivel++;
 		}
 	}
+	
+	public void boosterBarrera(){
+		if(barreraActiva){
+		Barrera barrera = new Barrera(0, 630, 500, 20);
+		add(barrera);
+		barrera.setFilled(true);
+		barrera.setFillColor(Color.GRAY);
+		barreraActiva = false;
+		}
+	}
 
 	public void victoria(){
 		if(ladrillos == 0){
 			remove(bola);
 			remove(fondo2);
-			remove(cursorD);
-			remove(cursorI);
-			remove(cursorCI);
-			remove(cursorCD);
-			remove(cursorI.cursor);
 			royale = new GImage("imagenes/fondovictoria.jpg");
 			add(royale);
 			royale.sendToFront();
-			JOptionPane.showMessageDialog(null, "Has conseguido la puntuación máxima: " + Arkanoid.puntuacion + " puntos" + " ¡FELICIDADES!");
+			JOptionPane.showMessageDialog(null, "Puntuación Final: " + Arkanoid.puntuacion + " puntos" + " ¡FELICIDADES HAS GANADO!");
 			ladrillos++;
 		}
 	}
