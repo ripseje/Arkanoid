@@ -18,8 +18,8 @@ import java.applet.AudioClip;
 
 public class Bola extends GOval{
 
-	public static double vx = 0;
-	public static double vy = 1;
+	public static int vx = 0;
+	public static int vy = 1;
 	public int golpes = 0;
 	public int vidas = 3;
 	public int pause = 0;
@@ -107,13 +107,13 @@ public class Bola extends GOval{
 			//si entra aquí es porque el objeto que está
 			//en la posición posX, posY es de tipo CursorLadI, el extremo izquierdo del cursor
 			if(vx == 0){
-				vx = -1.5;
+				vx = -2;
 			}
-			if(vx == 1.5 || vx == 1){
+			if(vx == 2 || vx == 1){
 				vx = 1;
 			}
-			if(vx == -1.5 || vx == -1){
-				vx = -1.5;
+			if(vx == -2 || vx == -1){
+				vx = -2;
 			}
 			
 			vy *= -1;
@@ -128,11 +128,30 @@ public class Bola extends GOval{
 			if(vx == 0){
 				vx = -1;
 			}
-			if(vx == 1.5 || vx == 1){
+			if(vx == 2 || vx == 1){
 				vx = 1;
 			}
-			if(vx == -1.5 || vx == -1){
-				vx = -1.5;
+			if(vx == -2 || vx == -1){
+				vx = -2;
+			}
+			
+			vy *= -1;
+			
+			//Devueve falso
+			noHaChocado = false;
+		}
+		
+		if(auxiliar instanceof CursorCentro){
+			//si entra aquí es porque el objeto que está
+			//en la posición posX, posY es de tipo CursorCentro, el centro del cursor
+			if(vx == 0){
+				vx = 1;
+			}
+			if(vx == 2 || vx == 1){
+				vx = 1;
+			}
+			if(vx == -2 || vx == -1){
+				vx = -1;
 			}
 			
 			vy *= -1;
@@ -145,12 +164,12 @@ public class Bola extends GOval{
 			//si entra aquí es porque el objeto que está
 			//en la posición posX, posY es de tipo CursorLadD, la zona derecha del centro del cursor
 			if(vx == 0){
-				vx = 1.5;
+				vx = 2;
 			}
-			if(vx == 1.5 || vx == 1){
-				vx = 1.5;
+			if(vx == 2 || vx == 1){
+				vx = 2;
 			}
-			if(vx == -1.5 || vx == -1){
+			if(vx == -2 || vx == -1){
 				vx = -1;
 			}
 			
@@ -166,11 +185,11 @@ public class Bola extends GOval{
 			if(vx == 0){
 				vx = 1;
 			}
-			if(vx == 1.5 || vx == 1){
+			if(vx == 2 || vx == 1){
 				vx = 1;
 			}
-			if(vx == -1.5 || vx == -1){
-				vx = -1.5;
+			if(vx == -2 || vx == -1){
+				vx = -2;
 			}
 			
 			vy *= -1;
@@ -213,21 +232,25 @@ public class Bola extends GOval{
 		}
 		
 		if(auxiliar instanceof Booster){
-			//Realiza un Random para ver que booster te da.
+			//Realiza un Random para ver que booster te da. Si no te da ninguno de
+			// los dos primeros boosters te da un bonus de puntos
 			
 			//Este te da más vidas y las aumenta al contador de vidas
 			if(random(2, 7) == 4){
 				vidas++;
 				Arkanoid.conteovidas.setLabel("x " + vidas);
 			}
-			//Este da bonus de puntos
-			if(random(2, 7) == 5){
-				Arkanoid.puntuacion += 400;
+			else{
+				if(random(2, 7) == 6){
+					//Este activa la barrera para que no se te vaya la pelota
+					Arkanoid.barreraActiva = true;
+				}
+				else{
+					//Este da bonus de puntos
+					Arkanoid.puntuacion += 400;
+				}
 			}
-			//Este activa la barrera para que no se te vaya la pelota
-			if(random(2, 7) == 6){
-				Arkanoid.barreraActiva = true;
-			}
+			
 			//si choca por la parte de abajo o por la parte de arriba de un larillo cambia la velocidad de la y
 			if (auxiliar.getY() >= posY || auxiliar.getY() + auxiliar.getHeight() <= posY){
 				vy *= -1;

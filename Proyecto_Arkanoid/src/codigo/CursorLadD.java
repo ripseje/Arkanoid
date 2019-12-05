@@ -24,10 +24,6 @@ public class CursorLadD extends GRect{
 		super (ancho, alto);
 		setFilled(true);
 		setFillColor(color);
-		setLocation(300, posY);
-		cursor = new GImage("imagenes/cursor.jpg");
-		cursor.setSize(ancho*4, alto);
-		cursor.setLocation(300, posY);
-		
+		setLocation(300, posY);		
 	}
 }

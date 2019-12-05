@@ -10,7 +10,7 @@ public class CursorCentD extends GRect{
 		super (ancho, alto);
 		setFilled(true);
 		setFillColor(color);
-		setLocation(320, posY);
+		setLocation(345, posY);
 
 	}
 }

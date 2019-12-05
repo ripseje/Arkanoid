@@ -21,10 +21,11 @@ public class Arkanoid extends GraphicsProgram{
 	static int ANCHO_LADRILLO = 35;
 	static int ALTO_LADRILLO = 15;
 	static Bola bola = new Bola(10, Color.CYAN);
-	CursorLadI cursorIzq = new CursorLadI(600, 20, 10, Color.GRAY);
-	CursorCentI cursorCIzq = new CursorCentI(600, 20, 10, Color.GRAY);
-	CursorLadD cursorDer = new CursorLadD(600, 20, 10, Color.GRAY);
-	CursorCentD cursorCDer= new CursorCentD(600, 20, 10, Color.GRAY);
+	CursorLadI cursorIzq = new CursorLadI(600, 15, 10, Color.GRAY);
+	CursorCentI cursorCIzq = new CursorCentI(600, 15, 10, Color.GRAY);
+	CursorLadD cursorDer = new CursorLadD(600, 15, 10, Color.GRAY);
+	CursorCentD cursorCDer= new CursorCentD(600, 15, 10, Color.GRAY);
+	CursorCentro cursorCent = new CursorCentro(600, 15, 10, Color.GRAY);
 	Limite limite = new Limite(480, 1000, 2);
 	GImage fondo;
 	GImage fondo2;
@@ -54,6 +55,7 @@ public class Arkanoid extends GraphicsProgram{
 		//Añadimos todas las partes del cursor y su imágen
 		add(cursorIzq);
 		add(cursorCIzq);
+		add(cursorCent);
 		add(cursorCDer);
 		add(cursorDer);
 		add(cursorIzq.cursor);
@@ -77,7 +79,13 @@ public class Arkanoid extends GraphicsProgram{
 
 	public void run(){
 		while(true){
-			pause(3);
+			pause(1);
+			cursorIzq.setLocation(bola.getX(), cursorIzq.getY());
+			cursorCIzq.setLocation(bola.getX()+15, cursorCIzq.getY());
+			cursorCent.setLocation(bola.getX()+30, cursorCent.getY());
+			cursorCDer.setLocation(bola.getX()+45, cursorCDer.getY());
+			cursorDer.setLocation(bola.getX()+60, cursorDer.getY());
+			cursorIzq.cursor.setLocation(bola.getX()+1, cursorIzq.getY()+1);
 			//Si el booleano barreraActiva es true se activará este booster, el cual hace que la bola 
 			//no pueda irse del campo hasta dar con este booster
 			//una sola vez
@@ -105,8 +113,9 @@ public class Arkanoid extends GraphicsProgram{
 
 	public void mouseMoved(MouseEvent evento){
 		cursorIzq.setLocation(evento.getX(), cursorIzq.getY());
-		cursorCIzq.setLocation(evento.getX()+20, cursorCIzq.getY());
-		cursorCDer.setLocation(evento.getX()+40, cursorCDer.getY());
+		cursorCIzq.setLocation(evento.getX()+15, cursorCIzq.getY());
+		cursorCent.setLocation(evento.getX()+30, cursorCent.getY());
+		cursorCDer.setLocation(evento.getX()+45, cursorCDer.getY());
 		cursorDer.setLocation(evento.getX()+60, cursorDer.getY());
 		cursorIzq.cursor.setLocation(evento.getX()+1, cursorIzq.getY()+1);
 	}
@@ -197,7 +206,8 @@ public class Arkanoid extends GraphicsProgram{
 	}
 	public void creaTercerNivel(){
 		//Nivel que crea tres pirámides inversas. Una grande blanca, una un poco más pequeña y naranja encima de la blanca
-		// y dos de boosters pequeñitas a los lados
+		// y dos de boosters pequeñitas a los lados. Cada creación de ladrillos tiene un pause(10) para que se vea
+		// como se crea y que no haya un impacto muy fuerte al cambiar de nivel
 		int numeroLadrillos = 14;
 		int numeroLadrillos2 = 10;
 		int numeroLadrillos3 = 6;
@@ -334,7 +344,8 @@ public class Arkanoid extends GraphicsProgram{
 	}
 	public void creaSegundoNivel(){
 		//Te crea un marcianito del space invaders de dos capas, una de ladrillos blancos y una encima de ladrillos naranjas.
-		//Además hay un booster en el ojo izquierdo del marcianito.
+		//Además hay un booster en el ojo izquierdo del marcianito. Cada creación de ladrillos tiene un pause(10) para que se vea
+		// como se crea y que no haya un impacto muy fuerte al cambiar de nivel
 		int numeroLadrillos1 = 9;
 		int numeroLadrillos2 = 5;
 		int numeroLadrillos3 = 10;
@@ -348,6 +359,7 @@ public class Arkanoid extends GraphicsProgram{
 			add(miLadrillo);
 			add(miLadrillo.bloque, posicionX+1, posicionY+1);
 			ladrillos++;
+			pause(10);
 		}
 		for(int j=3; j<numeroLadrillos2; j++){
 			int posicionX = desplazamientoInicial+449 + ANCHO_LADRILLO * -j - ANCHO_LADRILLO /2;
@@ -356,6 +368,7 @@ public class Arkanoid extends GraphicsProgram{
 			add(miLadrillo);
 			add(miLadrillo.bloque, posicionX+1, posicionY+1);
 			ladrillos++;
+			pause(10);
 		}
 		for(int j=3; j<numeroLadrillos3; j++){
 			int posicionX = desplazamientoInicial+12 + ANCHO_LADRILLO * j;
@@ -364,6 +377,7 @@ public class Arkanoid extends GraphicsProgram{
 			add(miLadrillo);
 			add(miLadrillo.bloque, posicionX+1, posicionY+1);
 			ladrillos++;
+			pause(10);
 		}
 		for(int j=3; j<numeroLadrillos2; j++){
 			int posicionX = desplazamientoInicial+12 + ANCHO_LADRILLO * j - ANCHO_LADRILLO;
@@ -372,6 +386,7 @@ public class Arkanoid extends GraphicsProgram{
 			add(miLadrillo);
 			add(miLadrillo.bloque, posicionX+1, posicionY+1);
 			ladrillos++;
+			pause(10);
 		}
 		for(int j=3; j<numeroLadrillos2+1; j++){
 			int posicionX = desplazamientoInicial+12 + ANCHO_LADRILLO * j + ANCHO_LADRILLO*2;
@@ -380,6 +395,7 @@ public class Arkanoid extends GraphicsProgram{
 			add(miLadrillo);
 			add(miLadrillo.bloque, posicionX+1, posicionY+1);
 			ladrillos++;
+			pause(10);
 		}
 		for(int j=3; j<numeroLadrillos2; j++){
 			int posicionX = desplazamientoInicial+12 + ANCHO_LADRILLO * j + ANCHO_LADRILLO*6;
@@ -388,6 +404,7 @@ public class Arkanoid extends GraphicsProgram{
 			add(miLadrillo);
 			add(miLadrillo.bloque, posicionX+1, posicionY+1);
 			ladrillos++;
+			pause(10);
 		}
 		for(int j=3; j<numeroLadrillos4; j++){
 			int posicionX = desplazamientoInicial+12 + ANCHO_LADRILLO * j - ANCHO_LADRILLO*2;
@@ -396,6 +413,7 @@ public class Arkanoid extends GraphicsProgram{
 			add(miLadrillo);
 			add(miLadrillo.bloque, posicionX+1, posicionY+1);
 			ladrillos++;
+			pause(10);
 		}
 		for(int j=3; j<numeroLadrillos2; j++){
 			int posicionX = desplazamientoInicial+12 + ANCHO_LADRILLO;
@@ -404,6 +422,7 @@ public class Arkanoid extends GraphicsProgram{
 			add(miLadrillo);
 			add(miLadrillo.bloque, posicionX+1, posicionY+1);
 			ladrillos++;
+			pause(10);
 		}
 		for(int j=3; j<numeroLadrillos2; j++){
 			int posicionX = desplazamientoInicial+12 + ANCHO_LADRILLO*11;
@@ -412,6 +431,7 @@ public class Arkanoid extends GraphicsProgram{
 			add(miLadrillo);
 			add(miLadrillo.bloque, posicionX+1, posicionY+1);
 			ladrillos++;
+			pause(10);
 		}
 		for(int j=3; j<numeroLadrillos3; j++){
 			int posicionX = desplazamientoInicial+12 + ANCHO_LADRILLO * j;
@@ -420,6 +440,7 @@ public class Arkanoid extends GraphicsProgram{
 			add(miLadrillo);
 			add(miLadrillo.bloque, posicionX+1, posicionY+1);
 			ladrillos++;
+			pause(10);
 		}
 		for(int j=3; j<numeroLadrillos2-1; j++){
 			int posicionX = desplazamientoInicial+12 + ANCHO_LADRILLO * j;
@@ -428,6 +449,7 @@ public class Arkanoid extends GraphicsProgram{
 			add(miLadrillo);
 			add(miLadrillo.bloque, posicionX+1, posicionY+1);
 			ladrillos++;
+			pause(10);
 		}
 		for(int j=3; j<numeroLadrillos2-1; j++){
 			int posicionX = desplazamientoInicial+12 + ANCHO_LADRILLO * j + ANCHO_LADRILLO*6;
@@ -436,6 +458,7 @@ public class Arkanoid extends GraphicsProgram{
 			add(miLadrillo);
 			add(miLadrillo.bloque, posicionX+1, posicionY+1);
 			ladrillos++;
+			pause(10);
 		}
 		for(int j=3; j<numeroLadrillos2; j++){
 			int posicionX = desplazamientoInicial+12 + ANCHO_LADRILLO * j + ANCHO_LADRILLO;
@@ -444,6 +467,7 @@ public class Arkanoid extends GraphicsProgram{
 			add(miLadrillo);
 			add(miLadrillo.bloque, posicionX+1, posicionY+1);
 			ladrillos++;
+			pause(10);
 		}
 		for(int j=3; j<numeroLadrillos2; j++){
 			int posicionX = desplazamientoInicial+12 + ANCHO_LADRILLO * j + ANCHO_LADRILLO*4;
@@ -452,6 +476,7 @@ public class Arkanoid extends GraphicsProgram{
 			add(miLadrillo);
 			add(miLadrillo.bloque, posicionX+1, posicionY+1);
 			ladrillos++;
+			pause(10);
 		}
 		for(int j=3; j<numeroLadrillos2; j++){
 			int posicionX = desplazamientoInicial+29 + ANCHO_LADRILLO * j - ANCHO_LADRILLO /2;
@@ -460,6 +485,7 @@ public class Arkanoid extends GraphicsProgram{
 			add(miLadrillo);
 			add(miLadrillo.bloque2, posicionX+1, posicionY+1);
 			ladrillos++;
+			pause(10);
 		}
 		for(int j=3; j<numeroLadrillos2; j++){
 			int posicionX = desplazamientoInicial+449 + ANCHO_LADRILLO * -j - ANCHO_LADRILLO /2;
@@ -468,6 +494,7 @@ public class Arkanoid extends GraphicsProgram{
 			add(miLadrillo);
 			add(miLadrillo.bloque2, posicionX+1, posicionY+1);
 			ladrillos++;
+			pause(10);
 		}
 		for(int j=3; j<numeroLadrillos3; j++){
 			int posicionX = desplazamientoInicial+12 + ANCHO_LADRILLO * j;
@@ -476,6 +503,7 @@ public class Arkanoid extends GraphicsProgram{
 			add(miLadrillo);
 			add(miLadrillo.bloque2, posicionX+1, posicionY+1);
 			ladrillos++;
+			pause(10);
 		}
 		for(int j=3; j<numeroLadrillos2; j++){
 			int posicionX = desplazamientoInicial+12 + ANCHO_LADRILLO * j - ANCHO_LADRILLO;
@@ -484,6 +512,7 @@ public class Arkanoid extends GraphicsProgram{
 			add(miLadrillo);
 			add(miLadrillo.bloque2, posicionX+1, posicionY+1);
 			ladrillos++;
+			pause(10);
 		}
 		for(int j=3; j<numeroLadrillos2+1; j++){
 			int posicionX = desplazamientoInicial+12 + ANCHO_LADRILLO * j + ANCHO_LADRILLO*2;
@@ -492,6 +521,7 @@ public class Arkanoid extends GraphicsProgram{
 			add(miLadrillo);
 			add(miLadrillo.bloque2, posicionX+1, posicionY+1);
 			ladrillos++;
+			pause(10);
 		}
 		for(int j=3; j<numeroLadrillos2; j++){
 			int posicionX = desplazamientoInicial+12 + ANCHO_LADRILLO * j + ANCHO_LADRILLO*6;
@@ -500,6 +530,7 @@ public class Arkanoid extends GraphicsProgram{
 			add(miLadrillo);
 			add(miLadrillo.bloque2, posicionX+1, posicionY+1);
 			ladrillos++;
+			pause(10);
 		}
 		for(int j=3; j<numeroLadrillos4; j++){
 			int posicionX = desplazamientoInicial+12 + ANCHO_LADRILLO * j - ANCHO_LADRILLO*2;
@@ -508,6 +539,7 @@ public class Arkanoid extends GraphicsProgram{
 			add(miLadrillo);
 			add(miLadrillo.bloque2, posicionX+1, posicionY+1);
 			ladrillos++;
+			pause(10);
 		}
 		for(int j=3; j<numeroLadrillos2; j++){
 			int posicionX = desplazamientoInicial+12 + ANCHO_LADRILLO;
@@ -516,6 +548,7 @@ public class Arkanoid extends GraphicsProgram{
 			add(miLadrillo);
 			add(miLadrillo.bloque2, posicionX+1, posicionY+1);
 			ladrillos++;
+			pause(10);
 		}
 		for(int j=3; j<numeroLadrillos2; j++){
 			int posicionX = desplazamientoInicial+12 + ANCHO_LADRILLO*11;
@@ -524,6 +557,7 @@ public class Arkanoid extends GraphicsProgram{
 			add(miLadrillo);
 			add(miLadrillo.bloque2, posicionX+1, posicionY+1);
 			ladrillos++;
+			pause(10);
 		}
 		for(int j=3; j<numeroLadrillos3; j++){
 			int posicionX = desplazamientoInicial+12 + ANCHO_LADRILLO * j;
@@ -532,6 +566,7 @@ public class Arkanoid extends GraphicsProgram{
 			add(miLadrillo);
 			add(miLadrillo.bloque2, posicionX+1, posicionY+1);
 			ladrillos++;
+			pause(10);
 		}
 		for(int j=3; j<numeroLadrillos2-1; j++){
 			int posicionX = desplazamientoInicial+12 + ANCHO_LADRILLO * j;
@@ -540,6 +575,7 @@ public class Arkanoid extends GraphicsProgram{
 			add(miLadrillo);
 			add(miLadrillo.bloque2, posicionX+1, posicionY+1);
 			ladrillos++;
+			pause(10);
 		}
 		for(int j=3; j<numeroLadrillos2-1; j++){
 			int posicionX = desplazamientoInicial+12 + ANCHO_LADRILLO * j + ANCHO_LADRILLO*6;
@@ -548,6 +584,7 @@ public class Arkanoid extends GraphicsProgram{
 			add(miLadrillo);
 			add(miLadrillo.bloque2, posicionX+1, posicionY+1);
 			ladrillos++;
+			pause(10);
 		}
 		for(int j=3; j<numeroLadrillos2; j++){
 			int posicionX = desplazamientoInicial+12 + ANCHO_LADRILLO * j + ANCHO_LADRILLO;
@@ -556,6 +593,7 @@ public class Arkanoid extends GraphicsProgram{
 			add(miLadrillo);
 			add(miLadrillo.bloque2, posicionX+1, posicionY+1);
 			ladrillos++;
+			pause(10);
 		}
 		for(int j=3; j<numeroLadrillos2; j++){
 			int posicionX = desplazamientoInicial+12 + ANCHO_LADRILLO * j + ANCHO_LADRILLO*4;
@@ -564,6 +602,7 @@ public class Arkanoid extends GraphicsProgram{
 			add(miLadrillo);
 			add(miLadrillo.bloque2, posicionX+1, posicionY+1);
 			ladrillos++;
+			pause(10);
 		}
 		for(int j=3; j<numeroLadrillos2-1; j++){
 			int posicionX = desplazamientoInicial+12 + ANCHO_LADRILLO * j + ANCHO_LADRILLO;
@@ -572,6 +611,7 @@ public class Arkanoid extends GraphicsProgram{
 			add(booster);
 			add(booster.bloque3, posicionX+1, posicionY+1);
 			ladrillos++;
+			pause(10);
 		}
 	}
 }
