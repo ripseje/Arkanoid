@@ -9,7 +9,7 @@ import acm.graphics.GRect;
  * Autor: Sergio Vilches y Enrique Amado
  * El cursor del juego Arkanoid
  */
-public class Cursor extends GRect{
+public class CursorLadI extends GRect{
 	
 	GImage cursor;
 	/**
@@ -20,13 +20,13 @@ public class Cursor extends GRect{
 	 * @param color color del cursor
 	 * @param viene con una imágen ya precolocada
 	 */
-	public Cursor(int posY, double ancho, double alto, Color color){
+	public CursorLadI(int posY, double ancho, double alto, Color color){
 		super (ancho, alto);
 		setFilled(true);
 		setFillColor(color);
 		setLocation(300, posY);
 		cursor = new GImage("imagenes/cursor.jpg");
-		cursor.setSize(ancho, alto);
+		cursor.setSize(ancho*4, alto);
 		cursor.setLocation(300, posY);
 		
 	}

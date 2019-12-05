@@ -21,7 +21,10 @@ public class Arkanoid extends GraphicsProgram{
 	static int ANCHO_LADRILLO = 35;
 	static int ALTO_LADRILLO = 15;
 	static Bola bola = new Bola(10, Color.CYAN);
-	Cursor cursor = new Cursor(600, 80, 10, Color.GRAY);
+	CursorLadI cursorIzq = new CursorLadI(600, 20, 10, Color.GRAY);
+	CursorCentI cursorCIzq = new CursorCentI(600, 20, 10, Color.GRAY);
+	CursorLadD cursorDer = new CursorLadD(600, 20, 10, Color.GRAY);
+	CursorCentD cursorCDer= new CursorCentD(600, 20, 10, Color.GRAY);
 	Limite limite = new Limite(480, 1000, 2);
 	GImage fondo;
 	GImage fondo2;
@@ -45,20 +48,28 @@ public class Arkanoid extends GraphicsProgram{
 		setSize(500, 700);
 		addMouseListeners();
 		addKeyListeners();
-		//SoundTest.sonidoFondo();
+		//Añadimos la imagen de fondo, que es un gif
 		fondo = new GImage("imagenes/fondo.gif");
 		add(fondo);
-		add(cursor);
-		add(cursor.cursor);
+		//Añadimos todas las partes del cursor y su imágen
+		add(cursorIzq);
+		add(cursorCIzq);
+		add(cursorCDer);
+		add(cursorDer);
+		add(cursorIzq.cursor);
+		//Añadimos el límite, que es dónde la bola se va a morir
 		add(limite);
+		//Añadimos el marcador de puntos arriba a la izquierda con la fuente Comic Sans color blanco
 		add(marcador, 20, 20);
 		marcador.setFont(new Font("Comic Sans MS", Font.BOLD, 15));
 		marcador.setColor(Color.WHITE);
+		//Añadimos el contador de vidas en comic sans color blanco y la ímagen del corazón
 		corazon = new GImage("imagenes/corazon.png");
 		add(corazon, 375, 6);
 		add(conteovidas, 400, 20);
 		conteovidas.setFont(new Font("Comic Sans MS", Font.BOLD, 15));
 		conteovidas.setColor(Color.WHITE);
+		//Añadimos la imágen de inicio y la mandamos delante del todo, la cual tendremos que pulsar para empezar la partida
 		inicioI = new GImage("imagenes/inicio.gif");
 		add(inicioI);
 		inicioI.sendToFront();
@@ -67,17 +78,25 @@ public class Arkanoid extends GraphicsProgram{
 	public void run(){
 		while(true){
 			pause(3);
+			//Si el booleano barreraActiva es true se activará este booster, el cual hace que la bola 
+			//no pueda irse del campo hasta dar con este booster
+			//una sola vez
 			boosterBarrera();
+			//Chequeamos el rebote
 			bola.chequeaRebote(this);
+			//Si nos quedamos a 0 vidas Bola.muerete será true y se cargará muerte();
 			if(Bola.muerete == true){
 				muerte();
 			}
+			//Se inicia el segundo nivel al romper todas los ladrillos del primer nivel
 			if(nivel == 1 && !(cuentabolas == 0)){
 				cambiaSegundoNivel();
 			}
+			//Se inicia el tercer nivel al romper todas los ladrillos del segundo nivel
 			if(nivel == 2 && !(cuentabolas == 0)){
 				cambiaTercerNivel();
 			}
+			//Si acabas con todos los ladrillos del tercer nivel se cargará la pantalla de victoria
 			if(nivel == 3 && !(cuentabolas == 0)){
 				victoria();
 			}
@@ -85,23 +104,31 @@ public class Arkanoid extends GraphicsProgram{
 	}
 
 	public void mouseMoved(MouseEvent evento){
-		cursor.setLocation(evento.getX(), cursor.getY());
-		cursor.cursor.setLocation(evento.getX()+1, cursor.getY()+1);
+		cursorIzq.setLocation(evento.getX(), cursorIzq.getY());
+		cursorCIzq.setLocation(evento.getX()+20, cursorCIzq.getY());
+		cursorCDer.setLocation(evento.getX()+40, cursorCDer.getY());
+		cursorDer.setLocation(evento.getX()+60, cursorDer.getY());
+		cursorIzq.cursor.setLocation(evento.getX()+1, cursorIzq.getY()+1);
 	}
 
 	public void keyPressed(KeyEvent evento){
+		//Al presionar una tecla se iniciará la partida
 		if(cuentabolas == 0){
 			add(bola, 250, 350);
 			remove(inicioI);
 			if(nivel == 0){
+				//Se crea el primer nivel
 				creaPrimerNivel();
 			}
 		}
+		//Añado estos contadores para que solo funcione una vez el KeyPressed
 		cuentabolas++;
 		nivel++;
 	}
 
 	public void muerte(){
+		//Al morir se borra la bola y se añaden la imagen negra del fondo y encima 
+		//un game over. Además se carga un has perdido con tu puntuación en la clase Bola.
 		remove(bola);
 		nigga = new GImage("imagenes/nigga.jpg"); 
 		add(nigga);
@@ -110,6 +137,8 @@ public class Arkanoid extends GraphicsProgram{
 	}
 
 	public void cambiaSegundoNivel(){
+		//Cuando se han roto todos los ladrillos del nivel 1 se cambian el fondo y 
+		// la bola y se crea el segundo nivel. Se aumenta el contador de nivel
 		if(ladrillos == 0){
 			remove(bola);
 			remove(fondo);
@@ -125,6 +154,8 @@ public class Arkanoid extends GraphicsProgram{
 	}
 
 	public void cambiaTercerNivel(){
+		//Cuando se han roto todos los ladrillos del nivel 2 se cambian el fondo y 
+		// la bola y se crea el tercer nivel. Se aumenta el contador de nivel
 		if(ladrillos == 0){
 			remove(bola);
 			remove(fondo2);
@@ -140,6 +171,8 @@ public class Arkanoid extends GraphicsProgram{
 	}
 	
 	public void boosterBarrera(){
+		//Crea la barrera si barreraActiva es igual a true y la cambia a false para que no cree
+		// barreras infinitas
 		if(barreraActiva){
 		Barrera barrera = new Barrera(0, 630, 500, 20);
 		add(barrera);
@@ -150,9 +183,11 @@ public class Arkanoid extends GraphicsProgram{
 	}
 
 	public void victoria(){
+		//Si se termina el tercer nivel se eliminan la bola y el fondo y se carga la imágen de victoria. Además
+		// sale un mensaje de la cantidad de puntos finales. Añade un ladrillo para que no se genere nada más.
 		if(ladrillos == 0){
 			remove(bola);
-			remove(fondo2);
+			remove(fondo3);
 			royale = new GImage("imagenes/fondovictoria.jpg");
 			add(royale);
 			royale.sendToFront();
@@ -161,6 +196,8 @@ public class Arkanoid extends GraphicsProgram{
 		}
 	}
 	public void creaTercerNivel(){
+		//Nivel que crea tres pirámides inversas. Una grande blanca, una un poco más pequeña y naranja encima de la blanca
+		// y dos de boosters pequeñitas a los lados
 		int numeroLadrillos = 14;
 		int numeroLadrillos2 = 10;
 		int numeroLadrillos3 = 6;
@@ -214,6 +251,9 @@ public class Arkanoid extends GraphicsProgram{
 		}
 	}
 	public void creaPrimerNivel(){
+		//Nivel que crea una X grande y una I o un palo lo mismo es que lo mismo da.
+		//En el centro de la X hay un booster y hay repartidos en la I y en la X varios
+		// ladrillos naranjas
 		int numeroLadrillos1 = 9;
 		int numeroLadrillos2 = 3;
 		int numeroLadrillos3 = 16;
@@ -293,6 +333,8 @@ public class Arkanoid extends GraphicsProgram{
 		}
 	}
 	public void creaSegundoNivel(){
+		//Te crea un marcianito del space invaders de dos capas, una de ladrillos blancos y una encima de ladrillos naranjas.
+		//Además hay un booster en el ojo izquierdo del marcianito.
 		int numeroLadrillos1 = 9;
 		int numeroLadrillos2 = 5;
 		int numeroLadrillos3 = 10;
